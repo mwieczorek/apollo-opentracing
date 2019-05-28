@@ -6,7 +6,7 @@ import { Request } from "apollo-server-env";
 import { SpanContext, addContextHelpers } from "./context";
 
 const alwaysTrue = () => true;
-const returnInputSpan = (_inputSpan: Span, _infos: RequestStart) => {};
+const emptyFunction = () => {};
 
 interface InitOptions {
   server?: Tracer;
@@ -106,7 +106,7 @@ export default class OpentracingExtension<TContext extends SpanContext>
     this.shouldTraceFieldResolver = shouldTraceFieldResolver || alwaysTrue;
     this.onFieldResolveFinish = onFieldResolveFinish;
     this.onFieldResolve = onFieldResolve;
-    this.onRequestResolve = onRequestResolve || returnInputSpan;
+    this.onRequestResolve = onRequestResolve || emptyFunction;
   }
 
   mapToObj(inputMap: Map<string, any>) {
